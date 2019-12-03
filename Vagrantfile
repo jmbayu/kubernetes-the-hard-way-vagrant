@@ -44,10 +44,27 @@ Vagrant.configure("2") do |config|
     end
   end
 
-  config.vm.define "traefik-0", autostart: false do |c|
+  # 192.168.199.30 will be the ingress IP, acc
+  # curl -H "Host: app.domain" 192.168.199.30
+  config.vm.define "traefik-0" do |c|
       c.vm.hostname = "traefik-0"
       c.vm.network "private_network", ip: "192.168.199.30"
 
       c.vm.provision :shell, :path => "scripts/vagrant-setup-routes.bash"
   end
+
+
+  config.vm.define "nfsserver-0" do |c|
+      c.vm.hostname = "nfsserver-0"
+      c.vm.network "private_network", ip: "192.168.199.50"
+
+      c.vm.provision :shell, :path => "scripts/vagrant-setup-nfsserver.bash"    
+  end
+
+  # config.vm.define "docker-0" do |c|
+  #   c.vm.hostname = "docker-0"
+  #   c.vm.network "private_network", ip: "192.168.199.60"
+
+  #   c.vm.provision :shell, :path => "scripts/vagrant-setup-docker.bash"    
+  # end
 end

@@ -12,7 +12,7 @@ for i in {0..2}; do
 set -euo pipefail
 
 apt-get update
-apt-get install -y socat libgpgme11
+apt-get install -y socat libgpgme11 nfs-common
 
 mkdir -p \
   /etc/containers \
